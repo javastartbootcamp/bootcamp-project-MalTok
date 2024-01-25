@@ -217,7 +217,9 @@
     <div class="section">
         <div class="container">
             <h2 id="szkolenia" class="mb-4">Planowane <span class="colorful-header">terminy</span></h2>
-            <div class="table-responsive">
+            <p th:if="${trainings.isEmpty()}" style="font-weight: bold">Obecnie nie mamy ustalonych terminów nowych szkoleń - ale nic straconego!
+                Skontaktuj się z nami (mailowo lub telefonicznie), coś wymyślimy :-)</p>
+            <div th:unless="${trainings.isEmpty()}" class="table-responsive">
                 <table class="table">
                     <thead>
                     <tr>
