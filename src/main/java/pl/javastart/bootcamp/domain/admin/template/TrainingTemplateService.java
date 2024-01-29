@@ -23,7 +23,6 @@ public class TrainingTemplateService {
         this.lessonRepository = lessonRepository;
     }
 
-
     public List<TrainingTemplate> findAll() {
         return trainingTemplateRepository.findAll();
     }
