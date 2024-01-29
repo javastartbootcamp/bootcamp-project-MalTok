@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import pl.javastart.bootcamp.config.JavaStartProperties;
+import pl.javastart.bootcamp.domain.contact.ContactDto;
 import pl.javastart.bootcamp.domain.signup.Signup;
 import pl.javastart.bootcamp.domain.user.User;
 
@@ -270,5 +271,23 @@ public class MailService {
     public void sendTaskRatingEmail(String message) {
         String title = "Nowa ocena zadania";
         asyncMailSender.sendEmail(ADMIN_EMAIL, title, message);
+    }
+
+    public void sendNewContactFormMessage(ContactDto contactDto) {
+        String title = "Nowa wiadomość z formularza kontaktowego od " + contactDto.getUserName();
+        String message = "Użytkownik przesłał nową wiadomość:<br>";
+        message += "Od: " + contactDto.getUserName() + "<br>";
+        message += "Email: " + contactDto.getUserEmail() + "<br>";
+        message += "Treść: " + contactDto.getMessage();
+        asyncMailSender.sendEmail(ADMIN_EMAIL, title, message);
+    }
+
+    public void sendContactFormConfirmationMessage(ContactDto contactDto) {
+        String title = "Potwierdzenie wysłania wiadomości z formularza kontaktowego";
+        String message = "Potwierdzamy przesłanie następującej wiadomości do administratora:<br>";
+        message += "Od: " + contactDto.getUserName() + "<br>";
+        message += "Email: " + contactDto.getUserEmail() + "<br>";
+        message += "Treść: " + contactDto.getMessage();
+        asyncMailSender.sendEmail(contactDto.getUserEmail(), title, message);
     }
 }
