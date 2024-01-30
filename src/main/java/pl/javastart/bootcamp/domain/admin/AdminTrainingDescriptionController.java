@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.javastart.bootcamp.config.notfound.ResourceNotFoundException;
 import pl.javastart.bootcamp.domain.training.description.TrainingDescription;
 import pl.javastart.bootcamp.domain.training.description.TrainingDescriptionService;
@@ -57,5 +58,18 @@ public class AdminTrainingDescriptionController {
         return "redirect:/admin/opisy";
     }
 
-
+    @GetMapping("/{id}/usun")
+    public String deleteDescription(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        Optional<TrainingDescription> descriptionOptional = trainingDescriptionService.findById(id);
+        if (descriptionOptional.isPresent()) {
+            TrainingDescription trainingDescription = descriptionOptional.get();
+            boolean deleted = trainingDescriptionService.delete(trainingDescription);
+            if (!deleted) {
+                redirectAttributes.addFlashAttribute("notEmptyTrainingList", true);
+            }
+            return "redirect:/admin/opisy";
+        } else {
+            throw new ResourceNotFoundException();
+        }
+    }
 }

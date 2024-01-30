@@ -39,4 +39,12 @@ public class TrainingDescriptionService {
         }
         return trainingDescriptionRepository.save(trainingDescription);
     }
+
+    public boolean delete(TrainingDescription trainingDescription) {
+        if (trainingDescription.getTrainings().isEmpty()) {
+            trainingDescriptionRepository.delete(trainingDescription);
+            return true;
+        }
+        return false;
+    }
 }
