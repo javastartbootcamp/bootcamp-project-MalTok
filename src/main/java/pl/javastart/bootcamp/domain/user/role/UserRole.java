@@ -1,9 +1,15 @@
 package pl.javastart.bootcamp.domain.user.role;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import pl.javastart.bootcamp.domain.user.User;
 
 import javax.persistence.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class UserRole {
 
@@ -17,27 +23,13 @@ public class UserRole {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
+    public UserRole(User user, Role role) {
         this.user = user;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return role.name();
     }
 }

@@ -180,4 +180,23 @@ public class UserService {
         User user = findByEmailOrThrow(name);
         user.setGithubUsername(githubUsername);
     }
+
+    @Transactional
+    public void promoteAdmin(Long id) {
+        userRepository.findById(id)
+                .ifPresent(user -> {
+                    if (user.getRoles().stream().noneMatch(role -> role.getRole().equals(Role.ROLE_ADMIN))) {
+                        user.getRoles().add(new UserRole(user, Role.ROLE_ADMIN));
+                    }
+                });
+    }
+
+    @Transactional
+    public void removeAdmin(Long id) {
+        userRepository.findById(id)
+                .ifPresent(value -> {
+                    List<UserRole> roles = value.getRoles();
+                    roles.removeIf(role -> role.getRole().equals(Role.ROLE_ADMIN));
+                });
+    }
 }
