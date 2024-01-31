@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+<body>
+<div layout:fragment="content" class="container">
+
+    <div style="margin: 140px auto; width: 600px; text-align: center">
+        <div>
+            <h2>Formularz został wysłany.</h2>
+            <br/>
+            <p>Jeśli podałeś prawidłowy adres e-mail, to na Twoją skrzynkę zostało wysłane potwierdzenie przesłania formularza.</p>
+            <p>Wkrótce się z Tobą skontaktujemy!</p>
+            <br/>
+            <h3><a th:href="@{/}" href="/">STRONA GŁÓWNA</a></h3>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

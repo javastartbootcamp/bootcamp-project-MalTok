@@ -34,7 +34,12 @@ public class ContactController {
         } else {
             mailService.sendNewContactFormMessage(contactDto);
             mailService.sendContactFormConfirmationMessage(contactDto);
-            return "redirect:/";
+            return "redirect:/kontakt/skontaktuj-sie/potwierdzenie";
         }
+    }
+
+    @GetMapping("/skontaktuj-sie/potwierdzenie")
+    public String confirmContact() {
+        return "contactFormEmailSent";
     }
 }

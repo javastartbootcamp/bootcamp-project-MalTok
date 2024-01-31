@@ -25,21 +25,40 @@
             display: flex;
             flex-direction: column;
             margin: auto;
-            width: 100%;
             align-items: center;
             justify-content: center;
         }
 
+        .form-container {
+            width: 100%;
+        }
+
         .form-label {
-            width: 50%;
+            width: 40%;
+        }
+
+        textarea {
+            min-height: 200px;
+        }
+
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .col-md-6 {
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
 <div layout:fragment="content">
-    <div>
-        <div class="col-md-4 col-lg-3 col-xl-3">
+    <div class="contact-container">
+        <div class="col-md-6 col-lg-3 col-xl-3">
             <h6 class="text-uppercase font-weight-bold">
                 <strong>Kontakt</strong>
             </h6>
@@ -50,14 +69,14 @@
         </div>
     </div>
     <br/>
-    <div>
-        <div class="col-md-4 col-lg-3 col-xl-3">
+    <div class="contact-container">
+        <div class="col-md-6 col-lg-3 col-xl-3">
             <h6 class="text-uppercase font-weight-bold">
                 <strong>Formularz kontaktowy</strong>
             </h6>
             <hr class="deep-orange accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
         </div>
-        <div>
+        <div class="form-container">
             <form th:action="@{/kontakt/skontaktuj-sie}" action="/kontakt/skontaktuj-sie" method="post" th:object="${contact}">
                 <div class="form">
                     <label class="form-label">
@@ -78,7 +97,7 @@
                     </label>
                     <p th:errors="*{message}" class="error">Błędna treść</p>
                     <br/>
-                    <button type="submit">WYŚLIJ</button>
+                    <button class="btn btn-primary" type="submit">WYŚLIJ</button>
                 </div>
             </form>
         </div>
