@@ -16,6 +16,7 @@ import pl.javastart.bootcamp.mail.MailService;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static pl.javastart.bootcamp.domain.user.ActivationResult.*;
 
@@ -45,6 +46,29 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public List<UserAdminDisplayDto> findAllDto() {
+        return userRepository.findAll().stream()
+                .map(this::maptoDto)
+                .collect(Collectors.toList());
+    }
+
+    private UserAdminDisplayDto maptoDto(User user) {
+        return new UserAdminDisplayDto(
+                user.getId(),
+                user.getEmail(),
+                user.getFirstName(),
+                user.getLastName(),
+                getRolesStringList(user)
+        );
+    }
+
+    private List<String> getRolesStringList(User user) {
+        return user.getRoles()
+                .stream()
+                .map(userRole -> userRole.getRole().toString())
+                .collect(Collectors.toList());
+    }
+
     public User createAccount(String email, String phoneNumber, String firstName, String lastName,
                               String street, String houseNumber, String flatNumber, String postalCode, String city) {
         User user = new User();
@@ -66,6 +90,7 @@ public class UserService {
         user.setActivationCode(UUID.randomUUID().toString());
 
         UserRole userRole = new UserRole();
+        userRole.setUser(user);
         userRole.setRole(Role.ROLE_USER);
         user.setRoles(Collections.singletonList(userRole));
 
