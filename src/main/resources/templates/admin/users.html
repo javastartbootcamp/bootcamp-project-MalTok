@@ -14,12 +14,27 @@
         <tr>
             <th>Imię i nazwisko</th>
             <th>Email</th>
+            <th scope="col">Aktualna rola</th>
+            <th>ADMIN</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="user: ${users}" class="clickable-row" th:data-href="'/admin/uzytkownicy/' + ${user.id}">
             <td th:text="${user.firstName} + ' ' + ${user.lastName}"></td>
             <td th:text="${user.email}"></td>
+            <td th:text="${user.roles}"></td>
+            <td>
+                <div th:unless="${user.roles.contains('ROLE_ADMIN')}">
+                    <form th:action="@{|/admin/uzytkownicy/${user.id}/awansuj|}" method="post">
+                        <button class="btn btn-primary btn-md mb-3 waves-effect waves-light" type="submit">AWANSUJ</button>
+                    </form>
+                </div>
+                <div th:if="${user.roles.contains('ROLE_ADMIN')}">
+                    <form th:action="@{|/admin/uzytkownicy/${user.id}/degraduj|}" method="post">
+                        <button class="btn btn-primary btn-md mb-3 waves-effect waves-light" type="submit">DEGRADUJ</button>
+                    </form>
+                </div>
+            </td>
         </tr>
 
         </tbody>
