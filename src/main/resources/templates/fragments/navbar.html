@@ -46,7 +46,7 @@
                 <a class="nav-link" href="#faq">FAQ</a>
             </li>
             <li class="nav-item" th:if="${#httpServletRequest.requestURI == '/' || #httpServletRequest.requestURI == '/szkolenie-testowanie'}">
-                <a class="nav-link" href="#kontakt">Kontakt</a>
+                <a class="nav-link" th:href="@{/kontakt}" href="/kontakt">Kontakt</a>
             </li>
             <li class="nav-item">
                 <a th:if="${#httpServletRequest.requestURI == '/szkolenie-testowanie'}" class="nav-link" href="/strona/oferta-dla-firm-automatyzacja">Oferta dla firm</a>

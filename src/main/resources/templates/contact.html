@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<head>
+    <title>Bootcamp Java Online - Intensywne Szkolenie od Podstaw</title>
+    <meta property="og:title" content="Bootcamp Java Online - Intensywne Szkolenie od Podstaw"/>
+    <meta name="twitter:title" content="Bootcamp Java Online - Intensywne Szkolenie od Podstaw"/>
+    <meta name="description"
+          content="Naucz się programować pod okiem doświadczonego mentora. Bootcampy programowania w Javie od podstaw aż do tworzenia własnych aplikacji webowych."/>
+    <meta property="og:description"
+          content="Naucz się programować pod okiem doświadczonego mentora. Bootcampy programowania w Javie od podstaw aż do tworzenia własnych aplikacji webowych."/>
+    <meta name="twitter:description"
+          content="Naucz się programować pod okiem doświadczonego mentora. Bootcampy programowania w Javie od podstaw aż do tworzenia własnych aplikacji webowych."/>
+    <meta property="og:url" th:content="|${currentDomain}|"/>
+    <link rel="canonical" th:href="|${currentDomain}|"/>
+    <style>
+        .error {
+            color: red;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-container {
+            width: 100%;
+        }
+
+        .form-label {
+            width: 40%;
+        }
+
+        textarea {
+            min-height: 200px;
+        }
+
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .col-md-6 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="contact-container">
+        <div class="col-md-6 col-lg-3 col-xl-3">
+            <h6 class="text-uppercase font-weight-bold">
+                <strong>Kontakt</strong>
+            </h6>
+            <hr class="deep-orange accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+            <p><i class="fa fa-home mr-3"></i> Wrocław</p>
+            <p><i class="fa fa-envelope mr-3"></i> bootcamp@javastart.pl</p>
+            <p><i class="fa fa-phone mr-3"></i> 788 023 248 (pon-pt 8:00-16:00)</p>
+        </div>
+    </div>
+    <br/>
+    <div class="contact-container">
+        <div class="col-md-6 col-lg-3 col-xl-3">
+            <h6 class="text-uppercase font-weight-bold">
+                <strong>Formularz kontaktowy</strong>
+            </h6>
+            <hr class="deep-orange accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        </div>
+        <div class="form-container">
+            <form th:action="@{/kontakt/skontaktuj-sie}" action="/kontakt/skontaktuj-sie" method="post" th:object="${contact}">
+                <div class="form">
+                    <label class="form-label">
+                        Twoje imię
+                        <input class="form-control" type="text" placeholder="Jan" th:field="*{userName}">
+                    </label>
+                    <p th:errors="*{userName}" class="error">Błędne imię</p>
+                    <br/>
+                    <label class="form-label">
+                        Twój adres e-mail
+                        <input class="form-control" type="email" placeholder="jan@kowalski.pl" th:field="*{userEmail}">
+                    </label>
+                    <p th:errors="*{userEmail}" class="error">Błędny e-mail</p>
+                    <br/>
+                    <label class="form-label">
+                        Treść wiadomości
+                        <textarea class="form-control" placeholder="Wiadomość" th:field="*{message}"></textarea>
+                    </label>
+                    <p th:errors="*{message}" class="error">Błędna treść</p>
+                    <br/>
+                    <button class="btn btn-primary" type="submit">WYŚLIJ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
